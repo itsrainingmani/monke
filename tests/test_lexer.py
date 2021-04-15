@@ -1,5 +1,4 @@
 from monke import lexer, token
-import monke
 
 
 def test_next_token():
@@ -21,5 +20,5 @@ def test_next_token():
 
     for t in expected:
         tok = l.next_token()
-
+        # print(tok, t)
         assert tok == t
