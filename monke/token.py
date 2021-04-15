@@ -32,3 +32,6 @@ tokentype = str
 class Token:
     type: tokentype
     literal: str
+
+def new_token(tt: tokentype, ch: str) -> Token:
+    return Token(type=tt, literal=ch)
