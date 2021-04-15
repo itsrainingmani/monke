@@ -22,6 +22,7 @@ class Lexer:
         self.read_position += 1
 
     def next_token(self) -> token.Token:
+        tok = ""
         ch = self.ch
 
         if ch == "=":
