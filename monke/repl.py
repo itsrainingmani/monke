@@ -20,7 +20,7 @@ def start():
                     break
                 else:
                     print("{}".format(tok))
-    except EOFError:
+    except (EOFError, KeyboardInterrupt):
         sys.exit("All things must come to an end 🙈")
 
 
