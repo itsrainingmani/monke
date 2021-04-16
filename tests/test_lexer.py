@@ -153,3 +153,41 @@ let result = add(five, ten);
         tok = l.next_token()
         # print(tok, t)
         assert tok == t
+
+
+def test_new_keywords():
+    input = """
+if (5 < 10) {
+    return true;
+} else {
+    return false;
+}
+"""
+
+    expected = [
+        token.Token(token.IF, "if"),
+        token.Token(token.LPAREN, "("),
+        token.Token(token.INT, "5"),
+        token.Token(token.LT, "<"),
+        token.Token(token.INT, "10"),
+        token.Token(token.RPAREN, ")"),
+        token.Token(token.LBRACE, "{"),
+        token.Token(token.RETURN, "return"),
+        token.Token(token.TRUE, "true"),
+        token.Token(token.SEMICOLON, ";"),
+        token.Token(token.RBRACE, "}"),
+        token.Token(token.ELSE, "else"),
+        token.Token(token.LBRACE, "{"),
+        token.Token(token.RETURN, "return"),
+        token.Token(token.FALSE, "false"),
+        token.Token(token.SEMICOLON, ";"),
+        token.Token(token.RBRACE, "}"),
+        token.Token(token.EOF, ""),
+    ]
+
+    l = lexer.new(input)
+
+    for t in expected:
+        tok = l.next_token()
+        # print(tok, t)
+        assert tok == t
