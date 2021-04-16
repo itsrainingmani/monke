@@ -1,4 +1,3 @@
-from ast import Str
 from dataclasses import dataclass
 from monke import token
 
@@ -18,6 +17,13 @@ def is_letter(ch: str) -> bool:
     char = ord(ch)
 
     return (a <= char <= z) or (A <= char <= z) or ch == "_"
+
+
+def is_digit(ch: str) -> bool:
+    zero = ord("0")
+    nine = ord("9")
+
+    return zero <= ord(ch) <= nine
 
 
 @dataclass
@@ -40,36 +46,57 @@ class Lexer:
     def read_identifier(self) -> str:
         """Read a contiguous identifier from the input string"""
         pos = self.position
-        while self.ch.isalpha():
-            self.read_char
+        while is_letter(self.ch):
+            self.read_char()
 
         return self.input[pos : self.position]
 
+    def read_number(self) -> str:
+        """Read a number from the input string"""
+        pos = self.position
+        while is_digit(self.ch):
+            self.read_char()
+
+        return self.input[pos : self.position]
+
+    def skip_whitespace(self):
+        if self.ch == 0:
+            return
+        while self.ch == " " or self.ch == "\t" or self.ch == "\n" or self.ch == "\r":
+            self.read_char()
+
     def next_token(self) -> token.Token:
         tok = ""
-        ch = self.ch
 
-        if ch == "=":
-            tok = token.new_token(token.ASSIGN, ch)
-        elif ch == ";":
-            tok = token.new_token(token.SEMICOLON, ch)
-        elif ch == "(":
-            tok = token.new_token(token.LPAREN, ch)
-        elif ch == ")":
-            tok = token.new_token(token.RPAREN, ch)
-        elif ch == ",":
-            tok = token.new_token(token.COMMA, ch)
-        elif ch == "+":
-            tok = token.new_token(token.PLUS, ch)
-        elif ch == "{":
-            tok = token.new_token(token.LBRACE, ch)
-        elif ch == "}":
-            tok = token.new_token(token.RBRACE, ch)
-        elif ch == 0:
+        self.skip_whitespace()
+
+        if self.ch == "=":
+            tok = token.new_token(token.ASSIGN, self.ch)
+        elif self.ch == ";":
+            tok = token.new_token(token.SEMICOLON, self.ch)
+        elif self.ch == "(":
+            tok = token.new_token(token.LPAREN, self.ch)
+        elif self.ch == ")":
+            tok = token.new_token(token.RPAREN, self.ch)
+        elif self.ch == ",":
+            tok = token.new_token(token.COMMA, self.ch)
+        elif self.ch == "+":
+            tok = token.new_token(token.PLUS, self.ch)
+        elif self.ch == "{":
+            tok = token.new_token(token.LBRACE, self.ch)
+        elif self.ch == "}":
+            tok = token.new_token(token.RBRACE, self.ch)
+        elif self.ch == 0:
             tok = token.new_token(token.EOF, "")
         else:
-            if ch.isalpha():
+            if is_letter(self.ch):
                 tok_literal = self.read_identifier()
+                tok_type = token.lookup_ident(tok_literal)
+                return token.new_token(tok_type, tok_literal)
+            elif is_digit(self.ch):
+                return token.new_token(token.INT, self.read_number())
+            else:
+                tok = token.new_token(token.ILLEGAL, self.ch)
 
         self.read_char()
         return tok
