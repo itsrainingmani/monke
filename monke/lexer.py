@@ -36,7 +36,7 @@ class Lexer:
     def read_char(self):
         """Give us the next character and advance our position in the input string"""
         if self.read_position >= len(self.input):
-            self.ch = 0
+            self.ch = "\x00"
         else:
             self.ch = self.input[self.read_position]
 
@@ -60,8 +60,6 @@ class Lexer:
         return self.input[pos : self.position]
 
     def skip_whitespace(self):
-        if self.ch == 0:
-            return
         while self.ch == " " or self.ch == "\t" or self.ch == "\n" or self.ch == "\r":
             self.read_char()
 
@@ -86,7 +84,7 @@ class Lexer:
             tok = token.new_token(token.LBRACE, self.ch)
         elif self.ch == "}":
             tok = token.new_token(token.RBRACE, self.ch)
-        elif self.ch == 0:
+        elif self.ch == "\x00":
             tok = token.new_token(token.EOF, "")
         else:
             if is_letter(self.ch):
