@@ -1,4 +1,8 @@
 from dataclasses import dataclass
+from typing import NewType
+
+# Type Alias
+tokentype = NewType("tokentype", str)
 
 ILLEGAL = "ILLEGAL"
 EOF = "EOF"
@@ -24,14 +28,21 @@ RBRACE = "}"
 FUNCTION = "FUNCTION"
 LET = "LET"
 
-# Type Alias
-tokentype = str
+keywords = {"fn": FUNCTION, "let": LET}
+
+
+def lookup_ident(ident: str) -> tokentype:
+    if ident in keywords:
+        return keywords[ident]
+    else:
+        return IDENT
 
 
 @dataclass
 class Token:
     type: tokentype
     literal: str
+
 
 def new_token(tt: tokentype, ch: str) -> Token:
     return Token(type=tt, literal=ch)
