@@ -16,7 +16,7 @@ def is_letter(ch: str) -> bool:
     Z = ord("Z")
     char = ord(ch)
 
-    return (a <= char <= z) or (A <= char <= z) or ch == "_"
+    return (a <= char <= z) or (A <= char <= Z) or ch == "_"
 
 
 def is_digit(ch: str) -> bool:
