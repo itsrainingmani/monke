@@ -76,13 +76,25 @@ class Lexer:
         self.skip_whitespace()
 
         if self.ch == "=":
-            tok = token.new_token(token.ASSIGN, self.ch)
+            if self.peek_char() == "=":
+                ch = self.ch
+                self.read_char()
+                tok_literal = ch + self.ch
+                tok = token.new_token(token.EQ, tok_literal)
+            else:
+                tok = token.new_token(token.ASSIGN, self.ch)
         elif self.ch == "+":
             tok = token.new_token(token.PLUS, self.ch)
         elif self.ch == "-":
             tok = token.new_token(token.MINUS, self.ch)
         elif self.ch == "!":
-            tok = token.new_token(token.BANG, self.ch)
+            if self.peek_char() == "=":
+                ch = self.ch
+                self.read_char()
+                tok_literal = ch + self.ch
+                tok = token.new_token(token.NOT_EQ, tok_literal)
+            else:
+                tok = token.new_token(token.BANG, self.ch)
         elif self.ch == "/":
             tok = token.new_token(token.SLASH, self.ch)
         elif self.ch == "*":
