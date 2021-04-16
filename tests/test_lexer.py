@@ -191,3 +191,29 @@ if (5 < 10) {
         tok = l.next_token()
         # print(tok, t)
         assert tok == t
+
+
+def test_doublechar_ops():
+    input = """
+10 == 10;
+10 != 9;
+"""
+
+    expected = [
+        token.Token(token.INT, "10"),
+        token.Token(token.EQ, "=="),
+        token.Token(token.INT, "10"),
+        token.Token(token.SEMICOLON, ";"),
+        token.Token(token.INT, "10"),
+        token.Token(token.NOT_EQ, "!="),
+        token.Token(token.INT, "9"),
+        token.Token(token.SEMICOLON, ";"),
+        token.Token(token.EOF, ""),
+    ]
+
+    l = lexer.new(input)
+
+    for t in expected:
+        tok = l.next_token()
+        # print(tok, t)
+        assert tok == t
