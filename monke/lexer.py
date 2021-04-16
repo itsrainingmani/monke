@@ -70,20 +70,20 @@ class Lexer:
 
         if self.ch == "=":
             tok = token.new_token(token.ASSIGN, self.ch)
-        elif self.ch == ";":
-            tok = token.new_token(token.SEMICOLON, self.ch)
+        elif self.ch == "+":
+            tok = token.new_token(token.PLUS, self.ch)
         elif self.ch == "(":
             tok = token.new_token(token.LPAREN, self.ch)
         elif self.ch == ")":
             tok = token.new_token(token.RPAREN, self.ch)
-        elif self.ch == ",":
-            tok = token.new_token(token.COMMA, self.ch)
-        elif self.ch == "+":
-            tok = token.new_token(token.PLUS, self.ch)
         elif self.ch == "{":
             tok = token.new_token(token.LBRACE, self.ch)
         elif self.ch == "}":
             tok = token.new_token(token.RBRACE, self.ch)
+        elif self.ch == ",":
+            tok = token.new_token(token.COMMA, self.ch)
+        elif self.ch == ";":
+            tok = token.new_token(token.SEMICOLON, self.ch)
         elif self.ch == "\x00":
             tok = token.new_token(token.EOF, "")
         else:
