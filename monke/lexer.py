@@ -43,6 +43,13 @@ class Lexer:
         self.position = self.read_position
         self.read_position += 1
 
+    def peek_char(self):
+        """Peek ahead in the input and return the character"""
+        if self.read_position >= len(self.input):
+            return "\x00"
+        else:
+            return self.input[self.read_position]
+
     def read_identifier(self) -> str:
         """Read a contiguous identifier from the input string"""
         pos = self.position
