@@ -34,8 +34,21 @@ RBRACE = "}"
 # Keywords
 FUNCTION = "FUNCTION"
 LET = "LET"
+TRUE = "TRUE"
+FALSE = "FALSE"
+IF = "IF"
+ELSE = "ELSE"
+RETURN = "RETURN"
 
-keywords = {"fn": FUNCTION, "let": LET}
+keywords = {
+    "fn": FUNCTION,
+    "let": LET,
+    "true": TRUE,
+    "false": FALSE,
+    "if": IF,
+    "else": ELSE,
+    "return": RETURN,
+}
 
 
 def lookup_ident(ident: str) -> tokentype:
