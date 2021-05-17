@@ -1,21 +1,19 @@
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core>=1.0.0"]
+
+[tool]
 [tool.poetry]
+authors = ["Manikandan Sundararajan <mani@hey.com>"]
+description = "Monke Interpreter"
+license = "MIT"
 name = "monke"
 version = "0.1.0"
-description = "Monke Interpreter"
-authors = ["Manikandan Sundararajan <mani@hey.com>"]
-license = "MIT"
-
 [tool.poetry.dependencies]
-python = "^3.9"
-
+python = "^3.8"
 [tool.poetry.dev-dependencies]
-flake8 = "^3.9.0"
 black = "^20.8b1"
+flake8 = "^3.9.0"
 pytest = "^6.2.3"
-
 [tool.poetry.scripts]
 repl = "monke.repl:start"
-
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
